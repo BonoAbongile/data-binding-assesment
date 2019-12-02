@@ -32,24 +32,31 @@ namespace FlagFacts
         private void InitializeData()
         {
             country.ItemsSource = (IList) repository.Countries;
-            country.SelectedItem = CurrentFlag.Country;
-            country.SelectedIndexChanged += (s, e) => CurrentFlag.Country = repository.Countries[country.SelectedIndex];
+            // country.SelectedItem = CurrentFlag.Country;
+            // country.SelectedIndexChanged += (s, e) => CurrentFlag.Country = repository.Countries[country.SelectedIndex];
 
-            flagImage.Source = CurrentFlag.GetImageSource();
+           // country.BindingContext = CurrentFlag;
+           // country.SetBinding(Picker.SelectedItemProperty,
+           //                    new Binding(nameof(CurrentFlag.Country)));
 
-            adopted.Date = CurrentFlag.DateAdopted;
-            adopted.DateSelected += (s, e) => CurrentFlag.DateAdopted = e.NewDate;
+          //flagImage.Source = CurrentFlag.GetImageSource();
 
-            hasShield.IsToggled = CurrentFlag.IncludesShield;
-            hasShield.Toggled += (s, e) => CurrentFlag.IncludesShield = hasShield.IsToggled;
+            // adopted.Date = CurrentFlag.DateAdopted;
+            // adopted.DateSelected += (s, e) => CurrentFlag.DateAdopted = e.NewDate;
 
-            description.Text = CurrentFlag.Description;
+            // hasShield.IsToggled = CurrentFlag.IncludesShield;
+            // hasShield.Toggled += (s, e) => CurrentFlag.IncludesShield = hasShield.IsToggled;
+
+            //  description.Text = CurrentFlag.Description;
+            this.BindingContext = CurrentFlag;
         }
 
         private async void OnShow(object sender, EventArgs e)
         {
+            CurrentFlag.DateAdopted = CurrentFlag.DateAdopted.AddYears(1);
+
             await DisplayAlert(CurrentFlag.Country,
-                $"{CurrentFlag.DateAdopted:D} - {CurrentFlag.IncludesShield}: {CurrentFlag.MoreInformationUrl}", 
+                $"{CurrentFlag.DateAdopted:D} - {CurrentFlag.IncludesShield}: {CurrentFlag.MoreInformationUrl}",
                 "OK");
         }
 
